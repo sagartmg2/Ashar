@@ -6,6 +6,7 @@
 
 async function calculate() {
 
+    // fix the bug here
     console.log(11);
 
     let promise1 = new Promise((resolve, reject) => {
