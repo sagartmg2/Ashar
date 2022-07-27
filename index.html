@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="icon" type="image/x-icon" href="https://picsum.photos/25/25">
     <!--  -->
-    <meta name="viewport" content="width  =device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="styles.css" />
     <script src="index.js" defer></script>
@@ -19,7 +19,8 @@
         * {
             /* margin: 0;
             padding: 0; */
-            /* box-sizing: border-box; */
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         body {
@@ -91,8 +92,8 @@
                 - ELEMENTS/TAGS
                 - UNIVERSAL SELECTOR
                 - ATTRIBUTE sELECTOR
-                - Descendend selector
-                - Direct children selector
+                - Descendend selector   div p
+                - Direct children selector   
                 - adjescent sibling selector
                 - general siblling selector 
 
@@ -147,21 +148,18 @@
         div p {
             background-color: red;
         }
+
         /* 
         000
          score =>001
         */
-        p{
+        p {
             background-color: teal;
         }
 
         /* p {
             background-color: teal;
         }
-
-       
-
-        
 
         #two {
             background-color: teal !important;
@@ -176,6 +174,7 @@
         .numbers.two {
             background-color: red;
         }
+
         /* 
         000
         
@@ -189,20 +188,21 @@
             100
         */
 
-        #two{
+        #two {
             background-color: black;
         }
-        
+
 
         /* 000
         score =>110
         */
 
-        #two.numbers{
+        #two.numbers {
             background-color: white;
         }
+
         /* => 120 */
-        #two.numbers.two{
+        #two.numbers.two {
             background-color: teal;
         }
 
@@ -210,20 +210,134 @@
         /* TODO: style p tag which have id attribute  */
 
         /* TODO:  check specifiicty score of  attribute selector  */
-       
 
+
+        /* 010 */
+        .numericals {
+            color: red;
+        }
+
+        /* o1o  */
+        /* [data-num^="1"] { */
+        /* [data-num$="1"] { */
+
+
+        [data-num*="1"] {
+            color: blue;
+        }
+
+        /* p{
+            color: brown;
+        }
+
+        [random]{
+            color: brown;
+        } */
+        /* * {
+            margin: 0;
+            padding: 0;
+        } */
+
+        .box {
+            height: 200px;
+            /* width: 200px; */
+            width: 50vw;
+            /* max-width: 100vw; */
+            background-color: violet;
+            margin: 100px;
+            /* padding:50px; */
+            /* border:10px solid black; */
+        }
+
+        /* ul #one{
+            color:red;
+        } */
+
+        /* li#one:first-child{
+            color:red;
+        } */
+
+        /* ul:first-child li:first-child{
+            color: red;
+        } */
+        /* 
+        li:nth-child(odd){
+            color:red;
+        } */
+
+
+        /* li:hover {
+            color: red;
+        } */
+
+        a:hover {
+            color: red;
+        }
+
+        a:visited {
+            color: grey
+        }
+
+        input:focus {
+            color: red;
+            background-color: black;
+        }
+
+        /* :required
+        :invalid */
+        .required-field::after {
+            content: "*";
+            color: red;
+        }
+
+
+        /* relative measurement units  
+            %
+            rem
+            em
+            vh
+            vw
+
+
+            css-postion 
+
+            flex box 
+        */
     </style>
-
 </head>
 
 <body>
+    <div>
+        <!-- <label for="price" class="required-field">price<span style="color:red">*</span></label> -->
+        <label for="price" class="required-field">price</label>
+        <label for="price" class="required-field">username</label>
+        <input id="price" type="number" />
+    </div>
+
+    <ul>
+        <li><a href="https://google.com"> google </a></li>
+    </ul>
+
+    <ul>
+        <li>2nd one</li>
+        <li>two</li>
+        <li>three</li>
+        <li>four</li>
+    </ul>
 
 
-    <div class="first">
-        <p class="numbers"  >one</p>
+
+    <span class="box">
+        hello
+    </span>
+
+    <div class="numericals">
+        <p class="numbers" data-num="1">one</p>
         <!-- <p class="numbers two another" id="two" style="background-color: white;"> two</p> -->
-        <p class="numbers two another" id="two" > two</p>
-        <p class="numbers">three</p>
+        <p class="numbers two another" data-num="2234231432" id="two"> two</p>
+        <div>
+            <p class="numbers" data-random>three</p>
+        </div>
         <p class="numbers">four</p>
     </div>
 
@@ -383,10 +497,10 @@
 
         <!-- <input type="video" src="https://media.istockphoto.com/videos/man-standing-at-at-opening-glowing-door-in-darkness-video-id1070586976">
  -->
-
+        <!-- 
         <video
             src="https://media.istockphoto.com/videos/man-standing-at-at-opening-glowing-door-in-darkness-video-id1070586976"
-            autoplay controls></video>
+            autoplay controls></video> -->
 
 
 
