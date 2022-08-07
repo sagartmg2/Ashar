@@ -1,29 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import Button from './component/Button';
+import { Fragment } from 'react';
 
 // class Amimal{
 // for => htmlFor
 // }
 
-
 function App() {
   return (
-    <div class="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         Hello , welcome to react
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <div>
+    <Fragment>
+      <Button
+        type="big"
+      />
+      <Button
+        type="small"
+      />
+
+    </Fragment>
   );
 }
 
