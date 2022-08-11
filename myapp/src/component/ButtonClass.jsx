@@ -11,6 +11,7 @@ export default class ButtonClass extends Component {
             count: 555,
             products: [],
             main_product_id: null,
+            value: ""
         }
     }
 
@@ -41,18 +42,26 @@ export default class ButtonClass extends Component {
         console.log("updated....");
     }
 
+    componentWillUnmount() {
+
+    }
+
     handleClick() {
         // alert("class handleclick");
         // console.log(this);
         this.count += 1
         console.log(this.count)
+        // this.setState(prev => {
+        //     return {
 
-        this.setState(
-            {
-                amount: this.state.amount + 1,
-                count: this.state.count + 1
-            }
-        )
+        //     }
+        // })
+        // this.setState(
+        //     {
+        //         amount: this.state.amount + 1,
+        //         count: this.state.count + 1
+        //     }
+        // )
         // this.setCount(
         //     {
         //         count: 12
@@ -62,16 +71,14 @@ export default class ButtonClass extends Component {
     }
 
     render() {
-
         console.log("rendering...");
-
         return (
             <>
                 <h1>{this.count}</h1>
-                <hr />
-                <h3>{this.state.amount}</h3>
-                <h4>{this.state.count}</h4>
-                <button onClick={this.handleClick}>{this.props.type}</button>
+                {/* <h3>{this.state.amount}</h3> */}
+                {/* <h4>{this.state.count}</h4> */}
+                <button onClick={this.handleClick}>{this.props.type}button</button>
+                <input onChange={() => this.setState({ value: "CHANGE" })} />
             </>
         )
     }

@@ -1,8 +1,22 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Button(props) {
 
-  const [state, setstate] = useState(false);
+  const [state, setState] = useState("");
+  const [count, setCount] = useState(0);
+
+  let name = "John"
+
+  useEffect(() => {
+    console.log("use-effect");
+    return () => {
+      console.log("use-effect-cleanup");
+    };
+  });
+  // },[]);
+  // },[state]);
+  // },  [count]);
+  // },  [count,state]);
 
   // constructor() {
   //   super();
@@ -10,15 +24,47 @@ export default function Button(props) {
   //   this.handleChange = this.handleChange.bind(this);
   // }
 
-  console.log(props)
+  // console.log(props)
 
   function handleClick() {
-    alert("clicked")
+    // alert("clicked")
+    setCount(prev => { return prev + 1 })
+    setCount(prev => { return prev + 1 })
+    setState("chagned...")
+
+
+    // setCount(count + 1)
+    // setCount(count + 1)
+    // setCount(count + 1)
+    // setCount(count + 1)
+    // setCount(count + 1)
+    // setCount(count + 1)
+
+    console.log({ count })
+    // setCount(count + 1)
+  }
+
+  console.log("render.....");
+
+  function handleChange() {
+    console.log("handle change...");
+    name = "Chagned"
   }
 
   return (
-    <button onClick={handleClick} type="button">
-      {props.type} Button
-    </button>
+    <>
+      <h1>{count}</h1>
+      <button onClick={handleClick} type="button">
+        {props.type} Button
+      </button>
+      {/* <input value={state} onChange={() => setState("new value")} /> */}
+      <h1>{name}</h1>
+      <input value={state} onChange={function () { setState("new value") }} />
+      {/* <input value={state}  onChange={ setState("new value")} /> */}
+      {/* <input value={state}  onChange={ setState("new value")} /> */}
+      <input value={state} onChange={() => handleChange()} />
+
+    </>
+
   )
 }
