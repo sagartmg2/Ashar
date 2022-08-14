@@ -9,6 +9,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import ProtectedRoute from './ProtectedRoute';
 
 // class Amimal{
 // for => htmlFor
@@ -18,8 +19,6 @@ function App() {
   return (
     // <div>
     <Fragment>
-
-
       <BrowserRouter>
         <ul>
           <li><Link to="/">Home</Link></li>
@@ -31,13 +30,15 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element={<h1>Home</h1>} />
+            <Route path="teams" element={<ProtectedRoute />} >
+              <Route index element={<h1>Teams</h1>} />
+              {/* <Route path=":<slug>" element={<h1>Team Code</h1>} /> */}
+              <Route path=":code" element={<h1>Team Code</h1>} />
+              <Route path="button" element={<Button title="small" />}>
+              </Route>
+            </Route>
             <Route path="class-button" element={<ButtonClass />}>
               <Route path="button" element={<Button />}>
-              </Route>
-              <Route path="teams" >
-                <Route index element={<h1>Teams</h1>} />
-                <Route path="button" element={<Button />}>
-                </Route>
               </Route>
             </Route>
           </Route>

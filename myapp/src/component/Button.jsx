@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Text from "./Text";
 
 export default function Button(props) {
 
@@ -12,7 +13,12 @@ export default function Button(props) {
     return () => {
       console.log("use-effect-cleanup");
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    console.log("use-effect => change  in state");
+  }, [count, state]);
+
   // },[]);
   // },[state]);
   // },  [count]);
@@ -51,6 +57,14 @@ export default function Button(props) {
     name = "Chagned"
   }
 
+  console.log(props.title);
+  return (
+    <button>
+      {/* {props.title} */}
+      <Text title={props.title} />
+    </button>
+  )
+
   return (
     <>
       <h1>{count}</h1>
@@ -63,6 +77,7 @@ export default function Button(props) {
       {/* <input value={state}  onChange={ setState("new value")} /> */}
       {/* <input value={state}  onChange={ setState("new value")} /> */}
       <input value={state} onChange={() => handleChange()} />
+
 
     </>
 
