@@ -58,11 +58,10 @@ export default function Button(props) {
   }
 
   console.log(props.title);
+  // <button>
+  // </button>
   return (
-    <button>
-      {/* {props.title} */}
-      <Text title={props.title} />
-    </button>
+      <Text setstate={setState} title={props.title} />
   )
 
   return (

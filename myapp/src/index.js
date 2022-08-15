@@ -2,13 +2,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import CustomApp,{BigButton} from './App';
+import CustomApp, { BigButton } from './App';
 // const app = require("app")
 import reportWebVitals from './reportWebVitals';
 
+import store from './redux/store'
+import { Provider } from 'react-redux'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <CustomApp />
+    <Provider store={store}>
+        <CustomApp />
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

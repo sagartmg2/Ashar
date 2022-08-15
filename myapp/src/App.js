@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Button from './component/Button';
-import { Fragment } from 'react';
+import { Fragment,useState } from 'react';
 import ButtonClass from './component/ButtonClass';
 import {
   BrowserRouter,
@@ -16,6 +16,8 @@ import ProtectedRoute from './ProtectedRoute';
 // }
 
 function App() {
+
+  const [state, setstate] = useState("initialState");
   return (
     // <div>
     <Fragment>
@@ -34,7 +36,7 @@ function App() {
               <Route index element={<h1>Teams</h1>} />
               {/* <Route path=":<slug>" element={<h1>Team Code</h1>} /> */}
               <Route path=":code" element={<h1>Team Code</h1>} />
-              <Route path="button" element={<Button title="small" />}>
+              <Route path="button" element={<Button setstate={setstate} title={state} />}>
               </Route>
             </Route>
             <Route path="class-button" element={<ButtonClass />}>
