@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios"
+import ErrorText from '../component/ErrorText';
 
 
 export default function Signup() {
@@ -14,9 +15,9 @@ export default function Signup() {
         name: "name state ",
         email: "",
         password: "password",
-        role: ""
+        role: "",
+        is_checked: true
     });
-
 
     // useEffect(() => {
     //     // effect
@@ -32,10 +33,15 @@ export default function Signup() {
         // console.log(event.target.name.value)
         // console.log(event.target.email.value)
 
-        axios.post('https://mern-ecommerce70.herokuapp.com/api/users/signup', {
+        let { name, role, password, email } = data
+
+        // process.env.SERVER_URL
+
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/users/signup`, {
             name,
-            email: event.target.email.value,
-            role: "buyer",
+            role,
+            password,
+            email
         })
             .then(function (response) {
                 // handle success
@@ -48,9 +54,37 @@ export default function Signup() {
     }
 
 
-    function handleChagne(e)
-    {
+    function handleChange(e) {
         // setData();
+        const { name, value } = e.target
+        // name = "email"
+        console.log("resul", name, value);
+        setData({
+            ...data,
+            [name]: value
+        })
+        // setData(
+        //     {
+        //         name: "value"
+        //     }
+        // )
+
+        let obj = {
+            1: "one",
+            a: 1,
+            b: 2,
+            b: 232,
+        }
+
+        let obj2 = { ...obj, c: 3, d: 4 };
+        console.log(obj2);
+
+
+        console.log(obj["a"]);
+
+        // data = {email:"email@asdf.com",role:"buyer"}
+
+
     }
 
     return (
@@ -58,28 +92,47 @@ export default function Signup() {
             <div class="mb-3 mt-5">
                 <label for="name" class="form-label required">Name</label>
                 <input type="text" class="form-control" name='name' id="name"
-                    onChange={(e) => setData({ name: e.target.value })}
+                    onChange={handleChange}
                     // onChange={(e) => setState({ name: e.target.value })} // class component
                     value={data.name}
                     aria-describedby="emailHelp" />
+
+                <ErrorText
+                    msg="required"
+                    field="name"
+                    data={data}
+                />
+
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label required">Email address</label>
                 <input type="email" class="form-control" name='email'
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
+                    // onChange={(e) => setEmail(e.target.value)}
+                    onChange={handleChange}
+                    value={data.email}
                     id="email" aria-describedby="emailHelp" />
+                <ErrorText
+                    msg="required"
+                    field="email"
+                    data={data}
+                />
+
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label required">Password</label>
-                <input type="password" class="form-control" id="password" />
+                <input type="password" class="form-control" id="password" name='password' onChange={handleChange}
+                    value={data.password} />
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label required">Role</label>
-                <select class="form-select" aria-label="Default select example" value={role}>
+                <select class="form-select" aria-label="Default select example" name='role' value={data.role} onChange={handleChange}>
                     <option value="seller">Seller</option>
                     <option value="buyer">Buyer</option>
                 </select>
+            </div>
+            <div>
+                <label htmlFor="is_checked" class="form-label required">Accept conditions</label>
+                <input type="checkbox" onChange={handleChange} name='is_checked' class="" id='is_checked' checked={data.is_checked} />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
