@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import ErrorText from '../component/ErrorText';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Signup() {
@@ -10,6 +11,7 @@ export default function Signup() {
     const [password, setPassword] = useState("password");
     const [role, setRole] = useState("buyer");
 
+    const navigate = useNavigate();
 
     const [data, setData] = useState({
         name: "name state ",
@@ -18,6 +20,8 @@ export default function Signup() {
         role: "",
         is_checked: true
     });
+
+    const [errors, setErrors] = useState({});
 
     // useEffect(() => {
     //     // effect
@@ -45,12 +49,49 @@ export default function Signup() {
         })
             .then(function (response) {
                 // handle success
-                console.log(response);
+                // let a = {}.random_key.random_key
+                // console.log(response);
+                navigate("/login")
+
             })
             .catch(function (error) {
                 // handle error
-                console.log(error);
+                console.log(error?.response?.data?.errors);
+                setErrors({})
+
+                error?.response?.data?.errors?.forEach(el => {
+                    // setER
+                    setErrors((prev_errors) => {
+                        return {
+                            ...prev_errors,
+                            [el.param]: el.msg
+                        }
+                    })
+
+                    // function sum() {
+                    //     console.log("inisde");
+                    // }
+
+                    // let sum = () => (console.log("insdide"));
+                    // let sum = () => { return console.log("insdide") };
+
+                })
             })
+
+
+        /* 
+        
+        let person  ={
+            name,
+            address:{
+                district,
+                munici,
+                tol,
+                ward,
+            }
+        }
+    
+        */
     }
 
 
@@ -63,6 +104,11 @@ export default function Signup() {
             ...data,
             [name]: value
         })
+        setErrors({
+            ...errors,
+            [name]: "",
+        })
+
         // setData(
         //     {
         //         name: "value"
@@ -96,12 +142,17 @@ export default function Signup() {
                     // onChange={(e) => setState({ name: e.target.value })} // class component
                     value={data.name}
                     aria-describedby="emailHelp" />
-
+                {/* 
                 <ErrorText
                     msg="required"
                     field="name"
                     data={data}
-                />
+                /> */}
+                {/* {
+                    errors?.random_key.random_key
+                    &&
+                    <h1>kkk</h1>
+                } */}
 
             </div>
             <div class="mb-3">
@@ -111,8 +162,9 @@ export default function Signup() {
                     onChange={handleChange}
                     value={data.email}
                     id="email" aria-describedby="emailHelp" />
+
                 <ErrorText
-                    msg="required"
+                    errors={errors}
                     field="email"
                     data={data}
                 />
@@ -122,10 +174,16 @@ export default function Signup() {
                 <label for="password" class="form-label required">Password</label>
                 <input type="password" class="form-control" id="password" name='password' onChange={handleChange}
                     value={data.password} />
+                <ErrorText
+                    errors={errors}
+                    field="password"
+                    data={data}
+                />
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label required">Role</label>
                 <select class="form-select" aria-label="Default select example" name='role' value={data.role} onChange={handleChange}>
+                    <option value="">Select</option>
                     <option value="seller">Seller</option>
                     <option value="buyer">Buyer</option>
                 </select>
@@ -133,6 +191,10 @@ export default function Signup() {
             <div>
                 <label htmlFor="is_checked" class="form-label required">Accept conditions</label>
                 <input type="checkbox" onChange={handleChange} name='is_checked' class="" id='is_checked' checked={data.is_checked} />
+            </div>
+            <div>
+                <label htmlFor="is_checked" class="form-label required">Accept conditions</label>
+                <input type="checkbox" onChange={handleChange} name='is_checkedtwo' class="" id='is_checkedtwo' checked={data.is_checked} />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

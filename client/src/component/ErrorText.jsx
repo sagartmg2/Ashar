@@ -8,16 +8,17 @@ import React from 'react'
 // sum(12,1)
 
 
-export default function ErrorText({ msg, field, data }) {
+export default function ErrorText({ errors, field, data }) {
 
     console.log({ data });
     console.log({ field });
 
-    if (data[field]) {
+    console.log("render");
+    if (data[field] && !errors[field]) {
         return null
     }
 
     return (
-        <small className='text-danger'>{msg}</small>
+        <small className='text-danger'>{errors[field]}</small>
     )
 }
