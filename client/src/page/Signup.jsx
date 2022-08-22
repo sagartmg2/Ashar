@@ -41,6 +41,9 @@ export default function Signup() {
 
         // process.env.SERVER_URL
 
+
+        // for image use FormData;
+
         axios.post(`${process.env.REACT_APP_SERVER_URL}/users/signup`, {
             name,
             role,

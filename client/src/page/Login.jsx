@@ -3,10 +3,13 @@ import axios from "axios"
 import ErrorText from '../component/ErrorText';
 import { useNavigate } from "react-router-dom";
 import Alert from '../component/Alert';
+import { useSelector, useDispatch } from "react-redux"
+import { login, logout, setUser } from '../redux/reducer/auth';
 
 
 export default function Login() {
 
+    const dispatch = useDispatch();
     const [name, setName] = useState("name");
     const [email, setEmail] = useState("email@email.com");
     const [password, setPassword] = useState("password");
@@ -51,6 +54,11 @@ export default function Login() {
                 // let a = {}.random_key.random_key
                 // console.log(response);
                 // navigate("/login")
+                console.log({ response });
+                localStorage.setItem("access_token", response.data.access_token)
+                dispatch(login())
+
+
                 navigate("/")
                 // setErrors({
                 //     status: "success",
