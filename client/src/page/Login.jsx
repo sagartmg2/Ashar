@@ -58,7 +58,6 @@ export default function Login() {
                 localStorage.setItem("access_token", response.data.access_token)
                 dispatch(login())
 
-
                 navigate("/")
                 // setErrors({
                 //     status: "success",
