@@ -11,15 +11,12 @@ export default function Create() {
 
     const [data, setData] = useState({
         name: " ",
-        email: "",
-        password: "",
-        role: "",
-        is_checked: true
+        price: "",
+        categories: [],
+        images: [],
     });
 
     const [errors, setErrors] = useState({});
-
-
 
     function handleSubmit(event) {
 
@@ -27,7 +24,7 @@ export default function Create() {
         // console.log(event.target.name.value)
         // console.log(event.target.email.value)
 
-        let { name, price, categories } = data
+        let { name, price, categories, images } = data
 
         // process.env.SERVER_URL
 
@@ -37,8 +34,21 @@ export default function Create() {
         let form_data = new FormData();
         form_data.append("name", name)
         form_data.append("price", price)
-        form_data.append("categries", categories)
-        form_data.append("images","")
+        let c_arr = categories.split(",")
+        console.log({ c_arr });
+
+        // form_data.append("categories[]", c_arr)
+
+        c_arr.forEach(el => {
+            form_data.append("categories[]", el)
+        })
+
+        let images_arr = [...images];
+        images_arr.forEach(el => {
+            form_data.append("images", el)
+        })
+
+        console.log(form_data)
 
         axios.post(`${process.env.REACT_APP_SERVER_URL}/products`, form_data, {
             headers: {
@@ -98,10 +108,20 @@ export default function Create() {
         const { name, value } = e.target
         // name = "email"
         console.log("resul", name, value);
-        setData({
-            ...data,
-            [name]: value
-        })
+
+        // console.log(e.target.type);
+        if (e.target.type == "file") {
+            setData({
+                ...data,
+                [name]: e.target.files
+            })
+        } else {
+            setData({
+                ...data,
+                [name]: value
+            })
+        }
+
         setErrors({
             ...errors,
             [name]: "",
@@ -116,8 +136,6 @@ export default function Create() {
                     onChange={handleChange}
                     value={data.name}
                     aria-describedby="emailHelp" />
-
-
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label required">Price</label>
@@ -139,9 +157,9 @@ export default function Create() {
                     value={data.categories} />
             </div>
             <div class="mb-3">
-                <label htmlFor="" class="form-label required">photos</label>
-                <input type="text" class="form-control" id="" name='categories' onChange={handleChange}
-                    value={data.categories} />
+                <label htmlFor="" class="form-label required">images</label>
+                <input type="file" multiple class="form-control" id="" name='images' onChange={handleChange}
+                />
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
