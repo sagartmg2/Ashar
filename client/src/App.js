@@ -9,6 +9,7 @@ import { login, logout, setUser } from "./redux/reducer/auth";
 import Home from "./page/Home";
 import Create from "./page/Product/Create";
 import ProtectedRoute from "./component/ProtectedRoute";
+import Show from "./page/Product/Show";
 
 
 function App() {
@@ -49,13 +50,19 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/products" >
+            <Route path="" element={<Home />} />
+            <Route path=":id" element={<Show />} />
+          </Route>
           <Route path="/sellers" element={<ProtectedRoute role="seller" />}>
             <Route path="products/create" element={<Create />} />
           </Route>
+
           {/* <Route path="/buyer" element={<ProtectedRoute role="buyer" />}>
             <Route path="products/create" element={<Create />} />
           </Route> */}
 
+          <Route path="/404" element={<h1>page not found</h1>} />
           <Route path="*" element={<h1>page not found</h1>} />
         </Routes>
       </div>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 export default function Home() {
 
@@ -30,14 +31,17 @@ export default function Home() {
                 {
                     products.map(el => {
                         return <div class="col-3 p-2">
-                            <div class="card " >
-                                <img src={`${el.images[0]}`} class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h2>${el.price}</h2>
-                                    <h5 class="card-title">{el.name}</h5>
-                                    <p class="card-text">{el.description}</p>
+                            <Link to={`/products/${el._id}`}>
+                                <div class="card">
+                                    <img src={`${el.images[0]}`} class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <h2>${el.price}</h2>
+                                        <h5 class="card-title">{el.name}</h5>
+                                        <p class="card-text">{el.description}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
+
                         </div>
                     })
                 }

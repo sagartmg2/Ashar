@@ -7,11 +7,15 @@ export default function ProtectedRoute(props) {
     const is_logged = useSelector((state) => state.auth.is_logged_in)
     const user = useSelector((state) => state.auth.user)
 
-    if (props.role && (user.role != props.role)) {
-        return <><h1>Forbidden</h1></>
-    }
 
-    return is_logged ? <Outlet /> : <Navigate to="/" />
+    console.log({ is_logged });
+    console.log({ user });
+
+    // if (props.role && (user.role != props.role)) {
+    //     return <><h1>Forbidden</h1></>
+    // }
+
+    // return is_logged ? <Outlet /> : <Navigate to="/" />
 
 
 }
