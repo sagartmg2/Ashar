@@ -11,11 +11,11 @@ export default function ProtectedRoute(props) {
     console.log({ is_logged });
     console.log({ user });
 
-    // if (props.role && (user.role != props.role)) {
-    //     return <><h1>Forbidden</h1></>
-    // }
+    if (props.role && (user.role != props.role)) {
+        return <><h1>Forbidden</h1></>
+    }
 
-    // return is_logged ? <Outlet /> : <Navigate to="/" />
+    return is_logged ? <Outlet /> : <Navigate to="/" />
 
 
 }

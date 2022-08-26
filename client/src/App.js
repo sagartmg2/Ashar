@@ -10,11 +10,14 @@ import Home from "./page/Home";
 import Create from "./page/Product/Create";
 import ProtectedRoute from "./component/ProtectedRoute";
 import Show from "./page/Product/Show";
+import cart, { setCartItems } from "./redux/reducer/cart";
+import Cart from "./page/Cart";
 
 
 function App() {
 
   const [user_fetched, setUserFetched] = useState(false);
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,6 +37,11 @@ function App() {
           setUserFetched(true)
         })
     }
+    if (localStorage.getItem("cart_items")) {
+      let cart_items = JSON.parse(localStorage.getItem("cart_items"))
+      dispatch(setCartItems(cart_items))
+    }
+
   }, [])
 
   if (!user_fetched) {
@@ -50,6 +58,7 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/products" >
             <Route path="" element={<Home />} />
             <Route path=":id" element={<Show />} />

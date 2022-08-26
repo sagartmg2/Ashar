@@ -26,6 +26,14 @@ export default function Navbar() {
                                 Home
                             </NavLink>
                             <NavLink
+                                to="/cart"
+                                style={({ isActive }) =>
+                                    isActive ? activeStyle : undefined
+                                }
+                            >
+                                Cart
+                            </NavLink>
+                            <NavLink
                                 to="/orders"
                                 style={({ isActive }) =>
                                     isActive ? activeStyle : undefined
@@ -33,18 +41,10 @@ export default function Navbar() {
                             >
                                 Order
                             </NavLink>
-                            <NavLink
-                                to="/checkout"
-                                style={({ isActive }) =>
-                                    isActive ? activeStyle : undefined
-                                }
-                            >
-
-                                Checkout
-                            </NavLink>
+                           
                         </li>
 
-                        <li class="nav-item dropdown">
+                        {/* <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown
                             </a>
@@ -56,7 +56,7 @@ export default function Navbar() {
                         </li>
                         <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
-                        </li>
+                        </li> */}
                     </ul>
                     {/* <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
