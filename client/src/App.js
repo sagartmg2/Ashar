@@ -12,6 +12,7 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import Show from "./page/Product/Show";
 import cart, { setCartItems } from "./redux/reducer/cart";
 import Cart from "./page/Cart";
+import Order from "./page/Order";
 
 
 function App() {
@@ -59,11 +60,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Order />} />
           <Route path="/products" >
             <Route path="" element={<Home />} />
             <Route path=":id" element={<Show />} />
           </Route>
           <Route path="/sellers" element={<ProtectedRoute role="seller" />}>
+            <Route path="products" element={<Home role="seller" />} />
             <Route path="products/create" element={<Create />} />
           </Route>
 

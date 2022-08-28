@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { addToCart } from '../../redux/reducer/cart';
+import { addToCart, delaySetCartItems } from '../../redux/reducer/cart';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Show() {
@@ -31,11 +31,13 @@ export default function Show() {
     // }
 
     function handleAddToCart() {
-        dispatch(addToCart({
-            _id: product._id,
-            name: product.name,
-            price: product.price,
-        }))
+        dispatch(delaySetCartItems());
+
+        // dispatch(addToCart({
+        //     _id: product._id,
+        //     name: product.name,
+        //     price: product.price,
+        // }))
     }
 
     return (

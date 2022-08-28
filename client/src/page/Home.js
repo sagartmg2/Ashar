@@ -2,14 +2,14 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
-export default function Home() {
+export default function Home({ role }) {
 
     const [products, setProduct] = useState([]);
 
     const [search_term, setSearchTerm] = useState("product-1")
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/products?search_term=${search_term}`)
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/products?search_term=${search_term}&role=${role}`)
             .then(response => {
                 console.log(response.data.data[0].data);
                 setProduct(response.data.data[0].data)
@@ -29,8 +29,8 @@ export default function Home() {
                 onChange={(e) => { setSearchTerm(e.target.value) }} />
             <div className='row'>
                 {
-                    products.map(el => {
-                        return <div class="col-3 p-2">
+                    products.map((el, index) => {
+                        return <div class="col-3 p-2" key={el._id}>
                             <Link to={`/products/${el._id}`}>
                                 <div class="card">
                                     <img src={`${el.images[0]}`} class="card-img-top" alt="..." />

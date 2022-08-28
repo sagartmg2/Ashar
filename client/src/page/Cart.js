@@ -1,23 +1,37 @@
 import axios from 'axios'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { setCartItems } from '../redux/reducer/cart';
 
 export default function Cart() {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const cart_items = useSelector((state) => state.cart.items)
 
     function handleCheckout() {
-        // axios.post(`https://mern-ecommerce70.herokuapp.com/api/${"orders"}`, {
-        //     products: cart_items
-        // }, {
-        //     headers: {
-        //         Authorization: `Bearer ${localStorage.getItem("access_token")}`
-        //     }
-        // })
-        axios.get(`https://mern-ecommerce70.herokuapp.com/api/${"orders"}`, {
+        axios.post(`https://mern-ecommerce70.herokuapp.com/api/${"orders"}`, {
+            products: cart_items
+        }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`
             }
         })
+            .then(res => {
+                dispatch(setCartItems([]))
+                navigate("/orders")
+                //TODO: clear cart-tiems from redeux
+                // TODO: // redirect to orders 
+            })
+        // axios.get(`https://mern-ecommerce70.herokuapp.com/api/${"orders"}`, {
+        //     headers: {
+        //         Authorization: `Bearer ${localStorage.getItem("access_token")}`
+        //     }
+        // })
+
+
+
     }
 
     return (

@@ -26,7 +26,8 @@ export const cartSlice = createSlice({
 
         },
         setCartItems: ((state, action) => {
-            state.items = action.payload
+            state.items = action.payload;
+            localStorage.setItem("cart_items", JSON.stringify(action.payload))
         })
         // logout: (state) => {
         //     state.is_logged_in = false
@@ -36,6 +37,15 @@ export const cartSlice = createSlice({
         // },
     },
 })
+
+
+export const delaySetCartItems = () => {
+    return (dispatch) => {
+        setTimeout(() => {
+            dispatch(setCartItems([{ "test": true }]))
+        }, 3000)
+    }
+}
 
 // Action creators are generated for each case reducer function
 export const { addToCart, setCartItems } = cartSlice.actions
