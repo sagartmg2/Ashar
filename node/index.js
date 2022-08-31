@@ -73,8 +73,8 @@ const server = http.createServer((req, res) => {
             try {
                 // let a = b + c;
                 res.writeHead(200, { 'Content-Type': 'text/html' })
-                // res.write(fs.readFileSync("./products.json"))
-                res.write(fs.readFileSync("./index.html"))
+                res.write(fs.readFileSync("./products.json"))
+                // res.write(fs.readFileSync("./index.html"))
                 res.end();
             }
             catch (err) {
