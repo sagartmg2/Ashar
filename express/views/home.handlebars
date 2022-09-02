@@ -1,0 +1,12 @@
+{{!-- <h1>{{name}}</h1> --}}
+
+<ul>
+    {{#each data}}
+    {{!-- <h1>data</h1> --}}
+    <li>{{this.name}}</li>
+    {{/each}}
+</ul>
+
+{{#with person}}
+{{name}} {{id}}
+{{/with}}
