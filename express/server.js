@@ -63,7 +63,6 @@ function authenticate(req, res, next) {
 
 app.use(authenticate)
 
-
 /* 
     M - model (database schema)
     V - View  (html , css)
