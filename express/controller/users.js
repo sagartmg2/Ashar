@@ -21,6 +21,12 @@ const show = (req, res, next) => {
     }
 }
 
+function store()
+{
+    // User.create
+
+}
+
 
 module.exports = {
     show
