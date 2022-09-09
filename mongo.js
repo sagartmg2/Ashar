@@ -38,8 +38,10 @@ db.authors.insertMany([
     { name: "Alex" }
 ])
 
-dbb.books.find({
-
+dbb.students.insertOne({
+    name,
+    address,
+    parent_name
 })
 
 // ObjectId("631871835ba019299f8322c5"),

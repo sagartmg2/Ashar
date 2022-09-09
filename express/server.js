@@ -1,14 +1,24 @@
 const express = require('express');
-// import express from "express"
-const { engine }  = require('express-handlebars');
+const mongoose = require('mongoose');
+const { engine } = require('express-handlebars');
 require('dotenv').config()
 
-const app = express()
 
+const { show, signup } = require("./controller/users")
+
+
+const app = express()
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
+mongoose.connect('mongodb://localhost:27017/ecom')
+    .then(res => {
+        console.log("mongodb connected");
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 const callMe = (req, res, next) => {
     console.log("callme")
@@ -68,7 +78,14 @@ app.use(authenticate)
     V - View  (html , css)
     C - controller  (business logic)
 */
-const { show } = require("./controller/users")
+
+
+// app.post("/api/users", (req, res, next) => {
+//     // console.log("test");
+//     // db.user.inser
+// })
+app.post("/api/users",signup)
+
 
 app.get("/users/:id", show)
 

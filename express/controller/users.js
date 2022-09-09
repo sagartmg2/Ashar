@@ -1,3 +1,31 @@
+const User = require("../model/User")
+
+const signup = (req, res, next) => {
+
+
+    // console.log("signup")
+    // code 
+    try {
+
+        let user = User.create({
+            name: "test data",
+            email: "t@t1.com"
+        }, (err, data) => {
+            res.send({ data })
+        })
+
+
+
+    } catch (err) {
+        next(err)
+    }
+
+}
+
+
+
+
+
 const show = (req, res, next) => {
     try {
         console.log("info")
@@ -9,8 +37,8 @@ const show = (req, res, next) => {
 
         return res.render('home', {
             name: result.name,
-            data:data,
-            person:result
+            data: data,
+            person: result
         });
 
         res.send(result)
@@ -21,13 +49,13 @@ const show = (req, res, next) => {
     }
 }
 
-function store()
-{
+function store() {
     // User.create
 
 }
 
 
 module.exports = {
-    show
+    show,
+    signup
 }
