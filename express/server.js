@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { engine } = require('express-handlebars');
 require('dotenv').config()
+const { body, validationResult } = require('express-validator');
 
 
-const { show, signup } = require("./controller/users")
-
+const { show, signup, index, login } = require("./controller/users");
+const { signup_validator, login_validator } = require('./middleware/user');
 
 const app = express()
 app.engine('handlebars', engine());
@@ -59,7 +60,7 @@ const auth_middleware = (req, res, next) => {
 //     next()
 // })
 
-app.use(express.json());
+// app.use(express.json());
 // app.use(auth_middleware)
 
 function authenticate(req, res, next) {
@@ -84,10 +85,30 @@ app.use(authenticate)
 //     // console.log("test");
 //     // db.user.inser
 // })
-app.post("/api/users",signup)
 
 
-app.get("/users/:id", show)
+
+// expressRouter
+
+app.use(express.json());
+
+// make this route a protected route.  => 401 unauthenticated. 
+app.get("/api/orders", (req, res, next) => {
+    res.send({ data: "orders" })
+})
+
+//  r. express Router
+
+app.get("/api/users", index)
+app.get("/api/users/:id", show)
+app.post("/api/users/login", login_validator, login)
+// app.post("/api/users/login", login )
+app.post("/api/users", signup_validator, signup)
+
+app.post("/api/test", (req, res, next) => {
+    console.log("body", req.body)
+})
+// app.get("/users/:id", show)
 
 app.get('/products/:id', auth_middleware, function (req, res) {
     // console.log("params", req.params);
@@ -108,7 +129,12 @@ app.use("", (req, res, next) => {
 // error handling
 app.use((err, req, res, next) => {
     console.log("error ");
-    res.status(500).send({
+    console.log(err.name)
+    let status = 500;
+    if (err.name === "ValidationError") {
+        status = 400
+    }
+    res.status(status).send({
         data: "server error",
         msg: err.message
     })

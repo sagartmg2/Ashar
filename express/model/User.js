@@ -6,13 +6,27 @@ const ObjectId = Schema.ObjectId;
 const UserSchema = new Schema({
     name:{
         type:String,
+        required:true,
     },
     email:{
         type:String,
         unique:true,
+        required:true,
     },
+    phone: {
+        type: String,
+        validate: {
+          validator: function(v) {
+            // "977-787-78787"
+            return /\d{3}-\d{3}-\d{4}/.test(v);
+          },
+          message: props => `${props.value} is not a valid phone number!`
+        },
+      },
     password:{
-        type:String
+        type:String,
+        required:[true, 'Why no password?'],
+        select:false,
     },
     address:{
         street:{
@@ -21,7 +35,9 @@ const UserSchema = new Schema({
     },
     role:{
         type:String,
-        enum:["buyer","seller"]
+        enum:["buyer","seller"],
+        required:true,
+
     }
 })
 
