@@ -7,6 +7,7 @@ const { body, validationResult } = require('express-validator');
 
 const { show, signup, index, login } = require("./controller/users");
 const { signup_validator, login_validator } = require('./middleware/user');
+const { authenticateToken } = require('./middleware/auth');
 
 const app = express()
 app.engine('handlebars', engine());
@@ -93,17 +94,17 @@ app.use(authenticate)
 app.use(express.json());
 
 // make this route a protected route.  => 401 unauthenticated. 
-app.get("/api/orders", (req, res, next) => {
+app.get("/api/orders", authenticateToken, (req, res, next) => {
     res.send({ data: "orders" })
 })
 
 //  r. express Router
 
-app.get("/api/users", index)
-app.get("/api/users/:id", show)
-app.post("/api/users/login", login_validator, login)
-// app.post("/api/users/login", login )
-app.post("/api/users", signup_validator, signup)
+const user_route = require("./route/users")
+
+app.use('/api/', user_route)
+// app.use("/",user_route)
+
 
 app.post("/api/test", (req, res, next) => {
     console.log("body", req.body)

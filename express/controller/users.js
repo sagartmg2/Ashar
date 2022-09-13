@@ -30,7 +30,14 @@ const signup = (req, res, next) => {
             if (err) {
                 next(err)
             } else {
-                res.send({ data })
+
+                // console.log(data);
+                let user_obj = data.toObject();
+                console.log(user_obj);
+
+                delete user_obj.password
+
+                res.send({ data : user_obj})
             }
         })
 
@@ -101,7 +108,7 @@ const login = async (req, res, next) => {
         //     __v: 0
         // }
 
-        var token = jwt.sign(user_obj.toObject(), 'shhhhh');
+        var token = jwt.sign(user_obj.toObject(), process.env.JWT_SECRET_KEY, { expiresIn: '120s' });
         if (status) {
             return res.send({
                 access_token: token
