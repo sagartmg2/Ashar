@@ -42,6 +42,26 @@ const login = async (req, res, next) => {
 
         let user_obj = await User.findOne({ email });
         var token = jwt.sign(user_obj.toObject(), process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION });
+        // var refresh_token = jwt.sign(user_obj.toObject(), process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRATION });
+        //  User.findandUpdate({email},{refresh_token:[]})
+
+/* 
+        token = 30 minutes
+        refresh_token  = 30days 
+            - refresh token helps in generating new acess_token
+
+        we should save refresh token in database too. 
+        logout from all devices ....
+            -> delete refresh token from database. 
+            users{
+                refresh_tokens:[
+                    // token
+                    // token 
+                ]
+            }
+
+ */
+
 
         if (status) {
             return res.send({

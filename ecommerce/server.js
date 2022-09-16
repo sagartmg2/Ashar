@@ -1,15 +1,18 @@
 
 const express = require("express")
+
 const auth_route = require("./route/auth")
+const product_route = require("./route/product")
 require("./config/db_connection")
 
-
 const app = express();
+app.use(express.static('public'))
 app.use(express.json())
 require('dotenv').config()
 
 
 app.use("/api", auth_route)
+app.use("/api/products", product_route)
 
 
 app.use("", (req, res, next) => {

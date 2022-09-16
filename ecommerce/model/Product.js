@@ -14,10 +14,12 @@ const ProductSchema = new Schema({
     price: {
         type: Number,
         min: 0,
+        default: 0,
     },
     in_stock: {
         type: Number,
         default: 0,
+        min: 0,
     },
     brands: {
         type: Array,
@@ -29,6 +31,11 @@ const ProductSchema = new Schema({
     //     role,
     // }
     created_by: {
+        
+        // name:
+        // email:
+        // contact:
+
         type: ObjectId,
         ref: "User",
         required: true,
