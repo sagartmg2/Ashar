@@ -40,6 +40,7 @@ const validateOwner = (req, res, next) => {
 }
 
 router.get("", index)
+router.get("/seller", authenticateToken, index)
 router.get("/:id", show)
 router.post("", authenticateToken, isSeller, upload.array('images', 12), store)
 router.put("/:id", authenticateToken, isSeller, validateOwner, upload.array('images', 12), update)

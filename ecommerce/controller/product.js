@@ -1,6 +1,6 @@
 
 const Product = require("../model/Product")
-
+const mongoose = require("mongoose")
 
 const index = async (req, res, next) => {
 
@@ -16,8 +16,58 @@ const index = async (req, res, next) => {
 
     // if buyer => receive all 
 
+    // let products = await Product.find({});
+    let search_term = req.query.search_term;
+    // console.log({search_term})
+    // return;
 
-    let products = await Product.find({});
+    let page = req.query.page || 1;
+    let per_page = req.query.per_page || 5;
+    // let price_from 
+    // let price_to 
+
+    // console.log(req.user.role == seller )
+
+    let products = await Product.aggregate([
+        {
+            $match: {
+                "created_by": req.user?.role === "seller" ?
+                    {
+                        $eq: mongoose.Types.ObjectId(req.user?._id)
+                    }
+                    :
+                    {
+                        $ne: {},
+                    }
+            }
+        },
+        {
+            $match: {
+                $or: [
+                    { name: { $regex: RegExp(search_term, "i") } },
+                    { brands: { $regex: RegExp(search_term, "i") } },
+                    { categories: { $regex: RegExp(search_term, "i") } },
+                ]
+            }
+        }, {
+            "$facet": {
+                "metadata": [
+                    { $count: "total" }, {
+                        $addFields: {
+                            page: page, per_page: per_page
+                        }
+                    }],
+                "data": [
+                    {
+                        $skip: ((page - 1) * (per_page)),
+                    },
+                    {
+                        $limit: parseInt(per_page)
+                    }
+                ]
+            }
+        }
+    ])
 
     res.send(products)
 

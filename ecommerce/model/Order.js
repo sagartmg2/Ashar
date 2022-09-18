@@ -24,12 +24,13 @@ const OrderSchema = new Schema({
             },
             quantity: {
                 type: Number,
-                min: 0,
+                min: 1,
                 required: true,
             },
             status: {
                 type: String,
-                enum: ["pending", "rejected", "completed"]
+                enum: ["pending", "rejected", "completed"],
+                default:"pending",
             }
         }
 
@@ -43,6 +44,6 @@ const OrderSchema = new Schema({
     timestamps: true,
 })
 
-module.exports = mongoose.model('Order', OrderSchema);
+    module.exports = mongoose.model('Order', OrderSchema);
 
 
