@@ -22,7 +22,7 @@ const store = async (req, res, next) => {
 
         // await may not work in forEach - for loop 
         // products.forEach(element => {
-        //     let product =  Product.findById(element._id)
+        //     let product =  Product.findById(element._id)  // == AGGREGATE $IN:PRODUCTS_IDS  AND LINK WITH USER
         //     let user = User.findById(product.created_by);
         //     user_emails.push(user.email)
         // });
@@ -30,6 +30,7 @@ const store = async (req, res, next) => {
         // send mail 
         // sendMail(["a@a.com", "b@b.com"], "order has been placed")
         // res.send({})
+        
         res.send(order);
     }
     catch (err) {

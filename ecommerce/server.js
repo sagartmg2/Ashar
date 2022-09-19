@@ -11,6 +11,9 @@ app.use(express.static('public'))
 app.use(express.json())
 require('dotenv').config()
 
+app.use("",(req,res) => {
+    res.send("test success")
+})
 
 app.use("/api", auth_route)
 app.use("/api/products", product_route)
