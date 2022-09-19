@@ -27,15 +27,15 @@ app.use((err, req, res, next) => {
     console.log(err.name)
 
     let status = 500;
-
+    let data = "Server Error"
     // MongoServerError
-
     if (err.name === "ValidationError") {
-        status = 400
+        status = 400;
+        data = "Validation Error"
     }
 
     res.status(status).send({
-        data: "server error",
+        data: data,
         msg: err.message
     })
 })

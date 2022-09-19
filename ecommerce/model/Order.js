@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ObjectId = Schema.ObjectId;
+const Product = require("../model/Product")
 
 // 100
 // 300
@@ -27,10 +28,32 @@ const OrderSchema = new Schema({
                 min: 1,
                 required: true,
             },
+            _id: {
+                ref: "Product",
+                required: true,
+                validate: {
+                    validator: async (value) => {
+                        try {
+                            const count = await mongoose.models.Product.countDocuments({ _id: value })
+                            if (count == 0) {
+                                return false
+                            }
+                        }
+                        catch (err) {
+                            if (err instanceof mongoose.CastError) {
+                                return false
+                            }
+                        }
+                    },
+                    message: props => `${props.value}Product not found by given ___id`
+                },
+                type: ObjectId,
+
+            },
             status: {
                 type: String,
                 enum: ["pending", "rejected", "completed"],
-                default:"pending",
+                default: "pending",
             }
         }
 
@@ -44,6 +67,6 @@ const OrderSchema = new Schema({
     timestamps: true,
 })
 
-    module.exports = mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model('Order', OrderSchema);
 
 

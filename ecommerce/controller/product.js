@@ -23,7 +23,9 @@ const index = async (req, res, next) => {
 
     let page = req.query.page || 1;
     let per_page = req.query.per_page || 5;
-    // let price_from 
+
+    let price_from = parseFloat(req.query.price_from) || 0
+    let price_to = parseFloat(req.query.price_to) || 1E9
     // let price_to 
 
     // console.log(req.user.role == seller )
@@ -47,9 +49,18 @@ const index = async (req, res, next) => {
                     { name: { $regex: RegExp(search_term, "i") } },
                     { brands: { $regex: RegExp(search_term, "i") } },
                     { categories: { $regex: RegExp(search_term, "i") } },
+                ],
+                $and: [
+                    {
+                        price: { $gte: price_from }
+                    },
+                    {
+                        price: { $lte: price_to }
+                    },
                 ]
             }
-        }, {
+        },
+        {
             "$facet": {
                 "metadata": [
                     { $count: "total" }, {
@@ -85,8 +96,6 @@ const show = (req, res, next) => {
 }
 
 const update = async (req, res, next) => {
-
-
 
     console.log(req.params.id)
 

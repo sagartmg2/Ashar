@@ -16,7 +16,7 @@ const UserSchema = new Schema({
             validator: async (email) => {
                 // check if the request email already exists..
                 // db.users.countDocuments({filter})
-                const count = mongoose.models.User.countDocuments({ email })
+                const count = await mongoose.models.User.countDocuments({ email })
                 if (count > 0) {
                     return false
                 }
